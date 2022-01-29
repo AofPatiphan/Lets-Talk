@@ -15,12 +15,12 @@ function ProfileCard({ item }) {
                     alt=""
                 />
             </div>
-            <div>
+            <div className="profileContent">
                 <div className="name">
-                    <div>
+                    <div className="detail1">
                         <b>{item.username}</b>
                     </div>
-                    <div>2m | 2 minutes Ago</div>
+                    <div className="detail2">2m | 2 minutes Ago</div>
                 </div>
                 <div>{item.About?.caption}</div>
             </div>

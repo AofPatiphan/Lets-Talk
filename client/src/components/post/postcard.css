@@ -31,6 +31,9 @@
 
 .postContent {
     color: #c68e50;
+    word-break: break-all;
+    white-space: normal;
+    padding-right: 20px;
 }
 
 .postButtom {

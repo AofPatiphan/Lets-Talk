@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
 function ProfileHeader({ person }) {
-    const { logout } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
 
     return (
         <>
@@ -25,16 +25,24 @@ function ProfileHeader({ person }) {
                                 alt="Profile Pigture"
                             />
                         </div>
-                        <div className="editProfile">
-                            <button className="btn">
-                                <b>Edit Profile</b>
-                            </button>
-                            <button className="btn" onClick={logout}>
-                                <b>
-                                    <i className="bi bi-box-arrow-right"></i>
-                                </b>
-                            </button>
-                        </div>
+                        {user.username === person.username ? (
+                            <div className="editProfile">
+                                <button className="btn">
+                                    <b>Edit Profile</b>
+                                </button>
+                                <button className="btn" onClick={logout}>
+                                    <b>
+                                        <i className="bi bi-box-arrow-right"></i>
+                                    </b>
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="editProfile">
+                                <button className="btn">
+                                    <b>Chat</b>
+                                </button>
+                            </div>
+                        )}
                     </div>
                     <div className="profileDetailContent">
                         <div className="username">

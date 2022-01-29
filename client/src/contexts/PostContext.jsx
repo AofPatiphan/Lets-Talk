@@ -15,12 +15,22 @@ function PostContextProvider(props) {
     };
 
     const addPost = async ({ title, picture }) => {
-        const res = await axios.post('/post', {
-            caption: title,
-            pictureUrl: picture,
-        });
-        const nextPost = [res.data.post, ...post];
-        setPost(nextPost);
+        if (title) {
+            const res = await axios.post('/post', {
+                caption: title,
+                pictureUrl: picture,
+            });
+            const nextPost = [res.data.post, ...post];
+            setPost(nextPost);
+        }
+    };
+
+    const updatePost = async (id, value) => {
+        const idx = post.findIndex((item) => item.id === id);
+        const newPost = [...post];
+        const res = await axios.put(`/post/${id}`, { caption: value });
+        newPost[idx] = res.data.post;
+        setPost(newPost);
     };
 
     return (
@@ -33,6 +43,7 @@ function PostContextProvider(props) {
                 post,
                 picture,
                 setPicture,
+                updatePost,
             }}
         >
             {props.children}

@@ -1,33 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { PostContext } from '../../contexts/PostContext';
 
-function PostForm() {
-    const { addPost, title, setTitle, picture, setPicture } =
-        useContext(PostContext);
-
-    const handleSubmitPost = (e) => {
+function UpdatePostForm({ item }) {
+    const { updatePost } = useContext(PostContext);
+    const [editText, setEditText] = useState(item.caption);
+    const handleSubmitEditPost = (e) => {
         e.preventDefault();
-        addPost({ title, picture });
-        setTitle('');
-        setPicture('');
+        updatePost(item.id, editText);
     };
+
     return (
         <div
             className="modal fade"
-            id="PostModal"
+            id={`EditPostModal${item.id}`}
             tabIndex="-1"
-            aria-labelledby="PostModalLabel"
+            aria-labelledby="EditPostModalLabel"
             aria-hidden="true"
         >
             <div className="modal-dialog ">
                 <div className="modal-content postForm">
-                    <form onSubmit={handleSubmitPost}>
+                    <form onSubmit={handleSubmitEditPost}>
                         <div className="modal-header ">
                             <h5
                                 className="modal-title postTitle"
-                                id="PostModalLabel"
+                                id="EditPostModalLabel"
                             >
-                                Create Post
+                                Edit Post
                             </h5>
                             <button
                                 type="button"
@@ -47,8 +45,10 @@ function PostForm() {
                                 <textarea
                                     className="form-control"
                                     id="message-text"
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
+                                    value={editText}
+                                    onChange={(e) =>
+                                        setEditText(e.target.value)
+                                    }
                                 ></textarea>
                             </div>
                         </div>
@@ -60,12 +60,12 @@ function PostForm() {
                             >
                                 Close
                             </button>
-                            {title ? (
+                            {editText ? (
                                 <button
                                     className="btn postBtn"
                                     data-bs-dismiss="modal"
                                 >
-                                    Submit Post
+                                    Submit Edit Post
                                 </button>
                             ) : (
                                 <button
@@ -73,7 +73,7 @@ function PostForm() {
                                     data-bs-dismiss="modal"
                                     disabled
                                 >
-                                    Submit Post
+                                    Submit Edit Post
                                 </button>
                             )}
                         </div>
@@ -84,4 +84,4 @@ function PostForm() {
     );
 }
 
-export default PostForm;
+export default UpdatePostForm;

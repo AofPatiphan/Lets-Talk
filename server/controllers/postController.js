@@ -74,3 +74,52 @@ exports.createPost = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.updatePost = async (req, res, next) => {
+    try {
+        const { caption } = req.body;
+        const { id } = req.params;
+
+        const [affectedRow] = await Post.update(
+            {
+                caption,
+            },
+            {
+                where: {
+                    id,
+                    userId: req.user.id,
+                },
+            }
+        );
+        if (affectedRow === 0) {
+            res.status(400).json({ message: 'cannot update todo' });
+        }
+
+        const post = await Post.findOne({
+            where: { id },
+            include: [
+                {
+                    model: User,
+                    attributes: {
+                        exclude: ['password', 'createdAt', 'updatedAt'],
+                    },
+                },
+                {
+                    model: Like,
+
+                    include: [
+                        {
+                            model: User,
+                            attributes: {
+                                exclude: ['password', 'createdAt', 'updatedAt'],
+                            },
+                        },
+                    ],
+                },
+            ],
+        });
+        res.status(200).json({ post });
+    } catch (err) {
+        next(err);
+    }
+};

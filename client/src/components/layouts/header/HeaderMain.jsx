@@ -39,7 +39,7 @@ function HeaderMain() {
                                 type="button"
                                 className="btn addPostBtn"
                                 data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
+                                data-bs-target="#PostModal"
                             >
                                 <i className="bi bi-pencil-square"></i>
                             </button>

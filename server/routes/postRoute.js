@@ -7,5 +7,6 @@ const auth = passport.authenticate('jwt-auth', { session: false });
 
 router.get('/:username', auth, postController.getPostById);
 router.post('/', auth, postController.createPost);
+router.put('/:id', auth, postController.updatePost);
 
 module.exports = router;

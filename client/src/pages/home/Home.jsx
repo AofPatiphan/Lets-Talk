@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useState, useEffect } from 'react';
-import ProfileCard from '../../components/profilecard/ProfileCard';
+import ProfileCard from '../../components/profile/ProfileCard';
 import { AuthContext } from '../../contexts/AuthContext';
 import './home.css';
 

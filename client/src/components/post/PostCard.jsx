@@ -18,13 +18,37 @@ function PostCard({ item }) {
                     <div className="topPost">
                         <div className="postUsername">{item.User.username}</div>
                         {user.username === username ? (
-                            <button
-                                className="btnPost btn"
-                                data-bs-toggle="modal"
-                                data-bs-target={`#EditPostModal${item.id}`}
-                            >
-                                <i className="bi bi-three-dots"></i>
-                            </button>
+                            <div className="dropdown">
+                                <button
+                                    className="btn "
+                                    role="button"
+                                    id="dropdownMenuLink"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                >
+                                    <i className="bi bi-three-dots"></i>
+                                </button>
+
+                                <ul
+                                    className="dropdown-menu"
+                                    aria-labelledby="dropdownMenuLink"
+                                >
+                                    <li>
+                                        <button
+                                            className="btnPost btn dropdown-item"
+                                            data-bs-toggle="modal"
+                                            data-bs-target={`#EditPostModal${item.id}`}
+                                        >
+                                            Edit
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button className="btnPost btn dropdown-item">
+                                            Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
                         ) : (
                             <></>
                         )}

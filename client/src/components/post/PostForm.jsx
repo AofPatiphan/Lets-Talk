@@ -2,7 +2,13 @@ import React, { useContext } from 'react';
 import { PostContext } from '../../contexts/PostContext';
 
 function PostForm() {
-    const { addPost, title, setTitle } = useContext(PostContext);
+    const { addPost, title, setTitle, picture, setPicture } =
+        useContext(PostContext);
+
+    const handleSubmitPost = (e) => {
+        e.preventDefault();
+        addPost({ title, picture });
+    };
     return (
         <div
             className="modal fade"
@@ -13,7 +19,7 @@ function PostForm() {
         >
             <div className="modal-dialog ">
                 <div className="modal-content postForm">
-                    <form>
+                    <form onSubmit={handleSubmitPost}>
                         <div className="modal-header ">
                             <h5
                                 className="modal-title postTitle"
@@ -52,9 +58,7 @@ function PostForm() {
                             >
                                 Close
                             </button>
-                            <button type="button" className="btn postBtn">
-                                Submit Post
-                            </button>
+                            <button className="btn postBtn">Submit Post</button>
                         </div>
                     </form>
                 </div>

@@ -6,6 +6,7 @@ const PostContext = createContext();
 function PostContextProvider(props) {
     const [post, setPost] = useState([]);
     const [title, setTitle] = useState('');
+    const [picture, setPicture] = useState('');
 
     // Get data profile
     const fetchPost = async (username) => {
@@ -24,7 +25,15 @@ function PostContextProvider(props) {
 
     return (
         <PostContext.Provider
-            value={{ title, setTitle, fetchPost, addPost, post }}
+            value={{
+                title,
+                setTitle,
+                fetchPost,
+                addPost,
+                post,
+                picture,
+                setPicture,
+            }}
         >
             {props.children}
         </PostContext.Provider>

@@ -1,0 +1,44 @@
+.postCard {
+    background-color: #fce7d0;
+    margin: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    gap: 20px;
+}
+
+.postProfilePicture > img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.topPost {
+    display: flex;
+    width: 250px;
+    justify-content: space-between;
+}
+
+.postUsername {
+    font-size: 1.3rem;
+    color: #ab6b22;
+}
+
+.btnPost {
+    color: #ab6b22;
+}
+
+.postContent {
+    color: #c68e50;
+}
+
+.postButtom {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.countLike {
+    padding-top: 5px;
+    padding-right: 25px;
+}

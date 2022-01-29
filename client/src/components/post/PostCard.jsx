@@ -2,7 +2,6 @@ import React from 'react';
 import './postcard.css';
 
 function PostCard({ item }) {
-    console.log(item);
     return (
         <div className="postCard">
             <div className="postProfilePicture">

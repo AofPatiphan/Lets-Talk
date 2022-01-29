@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { PostContext } from '../../contexts/PostContext';
 
 function PostForm() {
+    const { addPost, title, setTitle } = useContext(PostContext);
     return (
-        <div>
-            <div
-                className="modal fade"
-                id="exampleModal"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-            >
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">
-                                Modal title
+        <div
+            className="modal fade"
+            id="exampleModal"
+            tabIndex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <div className="modal-dialog ">
+                <div className="modal-content postForm">
+                    <form>
+                        <div className="modal-header ">
+                            <h5
+                                className="modal-title postTitle"
+                                id="exampleModalLabel"
+                            >
+                                Create Post
                             </h5>
                             <button
                                 type="button"
@@ -23,7 +28,22 @@ function PostForm() {
                                 aria-label="Close"
                             ></button>
                         </div>
-                        <div className="modal-body">...</div>
+                        <div className="modal-body">
+                            <div className="mb-3">
+                                <label
+                                    htmlFor="message-text"
+                                    className="col-form-label postTitle"
+                                >
+                                    Caption :
+                                </label>
+                                <textarea
+                                    className="form-control"
+                                    id="message-text"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                ></textarea>
+                            </div>
+                        </div>
                         <div className="modal-footer">
                             <button
                                 type="button"
@@ -32,11 +52,11 @@ function PostForm() {
                             >
                                 Close
                             </button>
-                            <button type="button" className="btn btn-primary">
-                                Save changes
+                            <button type="button" className="btn postBtn">
+                                Submit Post
                             </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

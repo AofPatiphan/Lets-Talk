@@ -5,7 +5,6 @@ import { AuthContext } from '../../contexts/AuthContext';
 
 function ProfileHeader({ person }) {
     const { logout } = useContext(AuthContext);
-    console.log(person.About);
 
     return (
         <>

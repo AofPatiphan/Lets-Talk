@@ -1,16 +1,16 @@
 import axios from '../../config/axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PostCard from '../../components/post/PostCard';
 import ProfileHeader from '../../components/profile/ProfileHeader';
 import { useParams } from 'react-router-dom';
 import './profile.css';
+import { PostContext } from '../../contexts/PostContext';
 
 function Profile() {
+    const { fetchPost, post } = useContext(PostContext);
     const [person, setPerson] = useState({});
-    const [post, setPost] = useState([]);
     const { username } = useParams();
 
-    console.log(person);
     // Fetch User Data
     useEffect(() => {
         const fetchUser = async () => {
@@ -18,17 +18,12 @@ function Profile() {
             setPerson(res.data.user);
         };
 
-        fetchUser();
+        fetchUser(username);
     }, [username]);
 
     //Fetch Post
     useEffect(() => {
-        const fetchPost = async () => {
-            const res = await axios.get(`/post/${username}`);
-            setPost(res.data.posts);
-        };
-
-        fetchPost();
+        fetchPost(username);
     }, [username]);
 
     if (!person || !post) {

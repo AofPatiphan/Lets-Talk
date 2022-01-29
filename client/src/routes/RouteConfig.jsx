@@ -11,6 +11,7 @@ import Register from '../components/auths/register/Register';
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import Footer from '../components/layouts/footer/Footer';
+import PostContextProvider from '../contexts/PostContext';
 
 const routes = {
     guest: [
@@ -43,17 +44,19 @@ function RouteConfig() {
         <>
             {role == 'user' ? (
                 <>
-                    <Routes>
-                        <Route path="/" element={<MainLayout />}>
-                            {routes[role].map((item) => (
-                                <Route
-                                    path={item.path}
-                                    element={item.element}
-                                    key={item.path}
-                                />
-                            ))}
-                        </Route>
-                    </Routes>
+                    <PostContextProvider>
+                        <Routes>
+                            <Route path="/" element={<MainLayout />}>
+                                {routes[role].map((item) => (
+                                    <Route
+                                        path={item.path}
+                                        element={item.element}
+                                        key={item.path}
+                                    />
+                                ))}
+                            </Route>
+                        </Routes>
+                    </PostContextProvider>
                     <Footer />
                 </>
             ) : (

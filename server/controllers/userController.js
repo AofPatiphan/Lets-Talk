@@ -4,7 +4,6 @@ const { Op } = require('sequelize');
 exports.getAllUser = async (req, res, next) => {
     try {
         const { id } = req.params;
-        console.log(id);
         const users = await User.findAll({
             include: [
                 {

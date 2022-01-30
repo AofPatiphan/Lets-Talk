@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
+import ConfirmDeletePost from './ConfirmDeletePost';
 import './postcard.css';
 import UpdatePostForm from './UpdatePostForm';
 
@@ -20,7 +21,7 @@ function PostCard({ item }) {
                         {user.username === username ? (
                             <div className="dropdown">
                                 <button
-                                    className="btn "
+                                    className="btn postTitle"
                                     role="button"
                                     id="dropdownMenuLink"
                                     data-bs-toggle="dropdown"
@@ -43,7 +44,11 @@ function PostCard({ item }) {
                                         </button>
                                     </li>
                                     <li>
-                                        <button className="btnPost btn dropdown-item">
+                                        <button
+                                            className="btnPost btn dropdown-item"
+                                            data-bs-toggle="modal"
+                                            data-bs-target={`#DeletePostModal${item.id}`}
+                                        >
                                             Delete
                                         </button>
                                     </li>
@@ -65,6 +70,7 @@ function PostCard({ item }) {
                 </div>
             </div>
             <UpdatePostForm item={item} />
+            <ConfirmDeletePost item={item} />
         </>
     );
 }

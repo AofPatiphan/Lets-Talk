@@ -51,8 +51,8 @@ function AuthContextProvider(props) {
         setUser(jwtDecode(token));
         setRole('user');
         navigate('/');
-        setEmail(null);
-        setPassword(null);
+        setEmail('');
+        setPassword('');
     };
 
     const handleSubmitRegister = async (e) => {

@@ -33,6 +33,12 @@ function PostContextProvider(props) {
         setPost(newPost);
     };
 
+    const deletePost = async (id) => {
+        const res = await axios.delete(`/post/${id}`);
+        const newPost = post.filter((item) => item.id !== id);
+        setPost(newPost);
+    };
+
     return (
         <PostContext.Provider
             value={{
@@ -44,6 +50,7 @@ function PostContextProvider(props) {
                 picture,
                 setPicture,
                 updatePost,
+                deletePost,
             }}
         >
             {props.children}

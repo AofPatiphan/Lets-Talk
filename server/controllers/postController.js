@@ -123,3 +123,22 @@ exports.updatePost = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.deletePost = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        const result = await Post.destroy({
+            where: {
+                id,
+                userId: req.user.id,
+            },
+        });
+        if (result === 0) {
+            res.status(400).json({ message: 'cannot delete todo' });
+        }
+        res.status(204).json();
+    } catch (err) {
+        next(err);
+    }
+};

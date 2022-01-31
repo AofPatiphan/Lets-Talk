@@ -1,24 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './conversation.css';
+import { useNavigate } from 'react-router-dom';
 
-function Conversation() {
+function Conversation({ room }) {
+    const navigate = useNavigate();
+
     return (
-        <div className="d-flex p-2 border-bottom border-warning">
+        <div
+            className="d-flex p-2 border-bottom border-warning"
+            onClick={() => {
+                navigate(`/messenger/${room.friendId}`);
+            }}
+        >
             <div className="pe-4">
                 <img
                     className="profileCardPicture"
-                    src="https://res.cloudinary.com/dbtlgaii3/image/upload/v1643169406/tutor/c1fv0htugi9ssu8clgry.jpg"
+                    src={room.profileUrl}
                     alt=""
                 />
             </div>
-            <div className="">
+            <div style={{ width: '100%' }}>
                 <div className="name">
                     <div>
-                        <b>Mamuang</b>
+                        <b>{room.username}</b>
                     </div>
                     <div>2 min</div>
                 </div>
-                <div>Hello, my name is mamuang</div>
+                <div style={{ color: '#C68E50' }}>{room.message}</div>
             </div>
         </div>
     );

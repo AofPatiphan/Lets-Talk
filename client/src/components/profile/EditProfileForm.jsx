@@ -1,10 +1,10 @@
 import axios from '../../config/axios';
 import React, { useContext, useState } from 'react';
 import './editprofileform.css';
-import { AuthContext } from '../../contexts/AuthContext';
+import { UserContext } from '../../contexts/UserContext';
 
 function EditProfileForm({ fetchUser }) {
-    const { user } = useContext(AuthContext);
+    const { userData } = useContext(UserContext);
     const [date, setDate] = useState('');
     const [age, setAge] = useState('');
     const [gender, setGender] = useState('');
@@ -13,7 +13,7 @@ function EditProfileForm({ fetchUser }) {
     const handleSubmitUpdateProfile = async (e) => {
         try {
             e.preventDefault();
-            const res = await axios.put(`/about/${user.id}`, {
+            const res = await axios.put(`/about/${userData.id}`, {
                 age: age,
                 birthDate: date,
                 gender: gender,

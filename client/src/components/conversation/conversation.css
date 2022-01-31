@@ -10,6 +10,7 @@
 }
 
 .name {
+    color: #ab6b22;
     display: flex;
     justify-content: space-between;
 }

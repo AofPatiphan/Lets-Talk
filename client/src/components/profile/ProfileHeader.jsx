@@ -2,9 +2,18 @@ import React from 'react';
 import './profileheader.css';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
+import { UserContext } from '../../contexts/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 function ProfileHeader({ person }) {
-    const { user, logout } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
+    const { userData } = useContext(UserContext);
+
+    const navigate = useNavigate();
+
+    const handleClickOpenChat = async () => {
+        navigate(`/messenger/${person.id}`);
+    };
 
     return (
         <>
@@ -25,7 +34,7 @@ function ProfileHeader({ person }) {
                                 alt="Profile Pigture"
                             />
                         </div>
-                        {user.username === person.username ? (
+                        {userData.username === person.username ? (
                             <div className="editProfile">
                                 <button
                                     type="button"
@@ -43,7 +52,10 @@ function ProfileHeader({ person }) {
                             </div>
                         ) : (
                             <div className="editProfile">
-                                <button className="btn">
+                                <button
+                                    className="btn"
+                                    onClick={handleClickOpenChat}
+                                >
                                     <b>Chat</b>
                                 </button>
                             </div>

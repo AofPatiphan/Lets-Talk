@@ -1,18 +1,18 @@
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { AuthContext } from '../../contexts/AuthContext';
+import { UserContext } from '../../contexts/UserContext';
 import { PostContext } from '../../contexts/PostContext';
 import ConfirmDeletePost from './ConfirmDeletePost';
 import './postcard.css';
 import UpdatePostForm from './UpdatePostForm';
 
 function PostCard({ item }) {
-    const { user } = useContext(AuthContext);
+    const { userData } = useContext(UserContext);
     const { fetchPost } = useContext(PostContext);
     const { username } = useParams();
     const [isLike, setIsLike] = useState(
-        item.Likes.findIndex((item) => item.userId === user.id) !== -1
+        item.Likes.findIndex((item) => item.userId === userData.id) !== -1
     );
 
     const likePost = async () => {
@@ -41,7 +41,7 @@ function PostCard({ item }) {
                 <div className="postcontainer">
                     <div className="topPost">
                         <div className="postUsername">{item.User.username}</div>
-                        {user.username === username ? (
+                        {userData.username === username ? (
                             <div className="dropdown">
                                 <button
                                     className="btn postTitle"

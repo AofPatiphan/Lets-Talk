@@ -1,43 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { AuthContext } from '../../../contexts/AuthContext';
-
+import { UserContext } from '../../../contexts/UserContext';
 import './footer.css';
 
 function Footer() {
-    const { user, setPage } = useContext(AuthContext);
+    const { userData } = useContext(UserContext);
 
     return (
         <>
             <div className="footer">
-                {/* <div> */}
-                <Link
-                    to={'/'}
-                    className="footerIcon"
-                    onClick={() => setPage('Home')}
-                >
+                <Link to={'/'} className="footerIcon">
                     <i className="bi bi-house"></i>
                 </Link>
-                {/* </div> */}
-                <Link
-                    to={'/'}
-                    className="footerIcon"
-                    onClick={() => setPage('Search')}
-                >
+                <Link to={'/'} className="footerIcon">
                     <i className="bi bi-search"></i>
                 </Link>
-                <Link
-                    to={'messenger'}
-                    className="footerIcon"
-                    onClick={() => setPage('Chat')}
-                >
+                <Link to={'messenger'} className="footerIcon">
                     <i className="bi bi-chat"></i>
                 </Link>
                 <Link
-                    to={`/profile/${user.username}`}
+                    to={`/profile/${userData.username}`}
                     className="footerIcon"
-                    onClick={() => setPage('Profile')}
                 >
                     <i className="bi bi-person"></i>
                 </Link>

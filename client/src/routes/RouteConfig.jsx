@@ -12,6 +12,10 @@ import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import Footer from '../components/layouts/footer/Footer';
 import PostContextProvider from '../contexts/PostContext';
+import UserContextProvider from '../contexts/UserContext';
+import ChatContextProvider from '../contexts/ChatContext';
+import SocketContextProvider from '../contexts/SocketContext';
+import Chat from '../pages/chat/Chat';
 
 const routes = {
     guest: [
@@ -23,8 +27,8 @@ const routes = {
         { path: '/', element: <Home /> },
         { path: '/profile/:username', element: <Profile /> },
         { path: '/about', element: <EditProfile /> },
-        { path: '/messenger/:id', element: <Messenger /> },
         { path: '/messenger/', element: <Messenger /> },
+        { path: '/messenger/:id', element: <Chat /> },
         { path: '*', element: <Navigate to="/" replace={true} /> },
     ],
 };
@@ -43,20 +47,29 @@ function RouteConfig() {
         <>
             {role == 'user' ? (
                 <>
-                    <PostContextProvider>
-                        <Routes>
-                            <Route path="/" element={<MainLayout />}>
-                                {routes[role].map((item) => (
-                                    <Route
-                                        path={item.path}
-                                        element={item.element}
-                                        key={item.path}
-                                    />
-                                ))}
-                            </Route>
-                        </Routes>
-                    </PostContextProvider>
-                    <Footer />
+                    <UserContextProvider>
+                        <PostContextProvider>
+                            <SocketContextProvider>
+                                <ChatContextProvider>
+                                    <Routes>
+                                        <Route
+                                            path="/"
+                                            element={<MainLayout />}
+                                        >
+                                            {routes[role].map((item) => (
+                                                <Route
+                                                    path={item.path}
+                                                    element={item.element}
+                                                    key={item.path}
+                                                />
+                                            ))}
+                                        </Route>
+                                    </Routes>
+                                </ChatContextProvider>
+                            </SocketContextProvider>
+                        </PostContextProvider>
+                        <Footer />
+                    </UserContextProvider>
                 </>
             ) : (
                 <Routes>

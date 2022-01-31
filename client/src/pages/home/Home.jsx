@@ -1,24 +1,24 @@
 import axios from 'axios';
 import React, { useContext, useState, useEffect } from 'react';
 import ProfileCard from '../../components/profile/ProfileCard';
-import { AuthContext } from '../../contexts/AuthContext';
+import { UserContext } from '../../contexts/UserContext';
 import './home.css';
 
 function Home() {
-    const { user } = useContext(AuthContext);
-    const [userData, setUserData] = useState([]);
+    const { userData } = useContext(UserContext);
+    const [allUserData, setAllUserData] = useState([]);
 
     useEffect(() => {
         const fetchAllUser = async (id) => {
             const res = await axios.get(`/user/all/${id}`);
-            setUserData(res.data.users);
+            setAllUserData(res.data.users);
         };
-        fetchAllUser(user.id);
+        fetchAllUser(userData.id);
     }, []);
 
     return (
         <div className="homepage">
-            {userData.map((item) => {
+            {allUserData.map((item) => {
                 return <ProfileCard item={item} key={item.id} />;
             })}
         </div>

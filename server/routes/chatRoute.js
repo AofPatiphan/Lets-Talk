@@ -1,10 +1,10 @@
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
-const userController = require('../controllers/userController');
+const chatController = require('../controllers/chatController');
 const auth = passport.authenticate('jwt-auth', { session: false });
 
-router.get('/all/:id', auth, userController.getAllUser);
-router.get('/:username', auth, userController.getUserByUsername);
+router.get('/room', auth, chatController.getAllChat);
+router.get('/message/:id', auth, chatController.getMessage);
 
 module.exports = router;

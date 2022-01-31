@@ -16,7 +16,7 @@ function HeaderPublic({ publicPage, setPublicPage }) {
         }
     };
     return (
-        <div className="ps-4 pe-5 pt-3 fixed-top d-flex justify-content-between header">
+        <div className="ps-4 pe-5 pt-3 fixed-top d-flex justify-content-between headerpublic">
             <div className="mt-2 " onClick={handleClickChangePage}>
                 {`${publicPage === 'login' ? `Register` : `Sign in`}`}
             </div>

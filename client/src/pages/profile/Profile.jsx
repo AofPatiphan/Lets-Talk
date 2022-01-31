@@ -5,19 +5,21 @@ import ProfileHeader from '../../components/profile/ProfileHeader';
 import { useParams } from 'react-router-dom';
 import './profile.css';
 import { PostContext } from '../../contexts/PostContext';
+import EditProfileForm from '../../components/profile/EditProfileForm';
+import { AuthContext } from '../../contexts/AuthContext';
 
 function Profile() {
+    const { aboutPerson } = useContext(AuthContext);
     const { fetchPost, post } = useContext(PostContext);
     const [person, setPerson] = useState({});
     const { username } = useParams();
 
     // Fetch User Data
+    const fetchUser = async () => {
+        const res = await axios.get(`/user/${username}`);
+        setPerson(res.data.user);
+    };
     useEffect(() => {
-        const fetchUser = async () => {
-            const res = await axios.get(`/user/${username}`);
-            setPerson(res.data.user);
-        };
-
         fetchUser(username);
     }, [username]);
 
@@ -33,6 +35,7 @@ function Profile() {
     return (
         <div className="profile">
             <ProfileHeader person={person} />
+            <EditProfileForm fetchUser={fetchUser} />
             {post.map((item) => {
                 return <PostCard item={item} key={item.id} />;
             })}

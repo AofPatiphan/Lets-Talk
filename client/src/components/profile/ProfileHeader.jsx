@@ -27,7 +27,12 @@ function ProfileHeader({ person }) {
                         </div>
                         {user.username === person.username ? (
                             <div className="editProfile">
-                                <button className="btn">
+                                <button
+                                    type="button"
+                                    className="btn"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#EditProfileModal"
+                                >
                                     <b>Edit Profile</b>
                                 </button>
                                 <button className="btn" onClick={logout}>

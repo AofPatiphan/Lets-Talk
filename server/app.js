@@ -3,6 +3,7 @@ const authRoute = require('./routes/authRoute');
 const uploadRoute = require('./routes/uploadRoute');
 const postRoute = require('./routes/postRoute');
 const userRoute = require('./routes/userRoute');
+const aboutRoute = require('./routes/aboutRoute');
 
 require('dotenv').config();
 require('./middlewares/passport');
@@ -27,6 +28,7 @@ app.use('/auth', authRoute);
 app.use('/user', userRoute);
 app.use('/upload', uploadRoute);
 app.use('/post', postRoute);
+app.use('/about', aboutRoute);
 
 // Error handling
 app.use((req, res, next) => {

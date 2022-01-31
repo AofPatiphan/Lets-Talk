@@ -34,10 +34,7 @@ function ConfirmDeletePost({ item }) {
                         </div>
                         <div className="modal-body">
                             <div className="mb-3">
-                                <label
-                                    htmlFor="message-text"
-                                    className="col-form-label postTitle"
-                                >
+                                <label className="col-form-label postTitle">
                                     Are you sure to delete this post?
                                 </label>
                             </div>

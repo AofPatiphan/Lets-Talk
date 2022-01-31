@@ -89,21 +89,21 @@ function PostForm() {
                             )}
                             <div className="mb-2">
                                 <label
-                                    htmlFor="message-text"
+                                    htmlFor="caption"
                                     className="col-form-label postTitle"
                                 >
                                     Caption :
                                 </label>
                                 <textarea
                                     className="form-control"
-                                    id="message-text"
+                                    id="caption"
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
                                 ></textarea>
                             </div>
                             <div className="mb-3">
                                 <label
-                                    htmlFor="formFile"
+                                    htmlFor="postFile"
                                     className="form-label"
                                 >
                                     Select your photo :
@@ -111,7 +111,7 @@ function PostForm() {
                                 <input
                                     className="form-control"
                                     type="file"
-                                    id="formFile"
+                                    id="postFile"
                                     onChange={handleFileInputChange}
                                 />
                             </div>

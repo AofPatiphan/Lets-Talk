@@ -87,14 +87,14 @@ function UpdatePostForm({ item }) {
                             )}
                             <div className="mb-3">
                                 <label
-                                    htmlFor="message-text"
+                                    htmlFor={`updatepost${item.id}`}
                                     className="col-form-label postTitle"
                                 >
                                     Caption :
                                 </label>
                                 <textarea
                                     className="form-control"
-                                    id="message-text"
+                                    id={`updatepost${item.id}`}
                                     value={editText}
                                     onChange={(e) =>
                                         setEditText(e.target.value)
@@ -103,7 +103,7 @@ function UpdatePostForm({ item }) {
                             </div>
                             <div className="mb-3">
                                 <label
-                                    htmlFor="formFile"
+                                    htmlFor={`updateFile${item.id}`}
                                     className="form-label"
                                 >
                                     Select your photo :
@@ -111,7 +111,7 @@ function UpdatePostForm({ item }) {
                                 <input
                                     className="form-control"
                                     type="file"
-                                    id="formFile"
+                                    id={`updateFile${item.id}`}
                                     onChange={handleUpdateFileInputChange}
                                 />
                             </div>

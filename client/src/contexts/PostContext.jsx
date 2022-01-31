@@ -15,7 +15,7 @@ function PostContextProvider(props) {
     };
 
     const addPost = async ({ title, picture }) => {
-        if (title) {
+        if (title || picture) {
             const res = await axios.post('/post', {
                 caption: title,
                 pictureUrl: picture,

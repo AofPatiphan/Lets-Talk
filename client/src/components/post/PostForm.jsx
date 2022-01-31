@@ -1,15 +1,47 @@
+import axios from '../../config/axios';
 import React, { useContext } from 'react';
+import './postform.css';
 import { PostContext } from '../../contexts/PostContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
 function PostForm() {
     const { addPost, title, setTitle, picture, setPicture } =
         useContext(PostContext);
+    const { loading, setLoading } = useContext(AuthContext);
 
     const handleSubmitPost = (e) => {
         e.preventDefault();
         addPost({ title, picture });
         setTitle('');
         setPicture('');
+    };
+
+    const handleFileInputChange = async (e) => {
+        setLoading(true);
+        if (!e.target.value) return;
+
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+
+        reader.onloadend = async () => {
+            await uploadImage(reader.result);
+        };
+        e.target.value = '';
+        reader.onerror = () => {
+            console.error('AHHHHHHHH!!');
+        };
+    };
+
+    const uploadImage = async (base64EncodedImage) => {
+        try {
+            const res = await axios.post('/upload', {
+                data: base64EncodedImage,
+            });
+            setPicture(res.data.url);
+            setLoading(false);
+        } catch (err) {
+            alert('File size too large.');
+        }
     };
     return (
         <div
@@ -37,7 +69,18 @@ function PostForm() {
                             ></button>
                         </div>
                         <div className="modal-body">
-                            <div className="mb-3">
+                            {picture ? (
+                                <div className="previewpostphoto">
+                                    <img
+                                        src={picture}
+                                        alt=""
+                                        className="previewpostphoto"
+                                    />
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+                            <div className="mb-2">
                                 <label
                                     htmlFor="message-text"
                                     className="col-form-label postTitle"
@@ -51,6 +94,20 @@ function PostForm() {
                                     onChange={(e) => setTitle(e.target.value)}
                                 ></textarea>
                             </div>
+                            <div className="mb-3">
+                                <label
+                                    htmlFor="formFile"
+                                    className="form-label"
+                                >
+                                    Select your photo :
+                                </label>
+                                <input
+                                    className="form-control"
+                                    type="file"
+                                    id="formFile"
+                                    onChange={handleFileInputChange}
+                                />
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button
@@ -60,7 +117,7 @@ function PostForm() {
                             >
                                 Close
                             </button>
-                            {title ? (
+                            {title || !loading ? (
                                 <button
                                     className="btn postBtn"
                                     data-bs-dismiss="modal"

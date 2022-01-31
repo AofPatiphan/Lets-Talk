@@ -45,3 +45,9 @@
     padding-top: 5px;
     padding-right: 25px;
 }
+
+.postpicture {
+    margin: 10px 0;
+    width: 100%;
+    border-radius: 10px;
+}

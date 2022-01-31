@@ -58,7 +58,30 @@ function PostCard({ item }) {
                             <></>
                         )}
                     </div>
-                    <div className="postContent">{item.caption}</div>
+                    {item.caption && item.pictureUrl ? (
+                        <>
+                            <div className="postContent">{item.caption}</div>
+                            <div className="postContent postpicture">
+                                <img
+                                    src={item.pictureUrl}
+                                    alt="Post picture"
+                                    className="postpicture"
+                                />
+                            </div>
+                        </>
+                    ) : item.caption && !item.pictureUrl ? (
+                        <div className="postContent">{item.caption}</div>
+                    ) : !item.caption && item.pictureUrl ? (
+                        <div className="postContent postpicture">
+                            <img
+                                src={item.pictureUrl}
+                                alt="Post picture"
+                                className="postpicture"
+                            />
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                     <div className="postButtom ">
                         <button className="btn btnPost">
                             <i className="bi bi-heart"></i>

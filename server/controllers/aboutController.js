@@ -3,8 +3,7 @@ const jwt = require('jsonwebtoken');
 
 exports.createAbout = async (req, res, next) => {
     try {
-        const { caption, age, gender, birthDate } = req.body;
-
+        const { id } = req.params;
         const { authorization } = req.headers;
         if (!authorization || !authorization.startsWith('Bearer')) {
             return res.status(401).json({ message: 'you are unauthenticated' });
@@ -16,11 +15,7 @@ exports.createAbout = async (req, res, next) => {
         const payload = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
         const about = await About.create({
-            caption,
-            age,
-            gender,
-            birthDate,
-            userId: payload.id,
+            userId: id,
         });
 
         res.status(201).json({ about });

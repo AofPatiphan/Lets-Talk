@@ -21,7 +21,6 @@ const routes = {
     ],
     user: [
         { path: '/', element: <Home /> },
-        // { path: '/profile/', element: <Profile /> },
         { path: '/profile/:username', element: <Profile /> },
         { path: '/about', element: <EditProfile /> },
         { path: '/messenger/:id', element: <Messenger /> },

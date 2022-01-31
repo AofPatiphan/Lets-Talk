@@ -19,7 +19,6 @@ function AuthContextProvider(props) {
     const [role, setRole] = useState(localStorageService.getRole());
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
-    const [page, setPage] = useState('Home');
     const navigate = useNavigate();
 
     // useEffect(() => {
@@ -67,6 +66,7 @@ function AuthContextProvider(props) {
                 confirmPassword,
                 profileUrl: imageUrl,
             });
+            // await axios.post(`/about/${res.data.id}`);
             navigate('/login');
             setFirstName('');
             setLastName('');
@@ -81,7 +81,6 @@ function AuthContextProvider(props) {
     };
     const logout = () => {
         localStorageService.removeToken();
-        setPage('Home');
         setUser(null);
         setRole('guest');
         navigate('/login');
@@ -116,8 +115,6 @@ function AuthContextProvider(props) {
                 setLoading,
                 imageUrl,
                 setImageUrl,
-                page,
-                setPage,
             }}
         >
             {props.children}

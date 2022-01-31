@@ -5,7 +5,7 @@ const router = express.Router();
 const aboutController = require('../controllers/aboutController');
 const auth = passport.authenticate('jwt-auth', { session: false });
 
-router.post('/', auth, aboutController.createAbout);
+router.post('/:id', auth, aboutController.createAbout);
 router.put('/:id', auth, aboutController.updateAbout);
 
 module.exports = router;

@@ -1,15 +1,14 @@
 import React from 'react';
 import './headermain.css';
-import { useContext } from 'react';
-import { AuthContext } from '../../../contexts/AuthContext';
+import { useLocation } from 'react-router-dom';
 
 function HeaderMain() {
-    const { page } = useContext(AuthContext);
+    const location = useLocation();
 
     return (
         <>
             <div className="ps-4 pe-5 pt-3 fixed-top d-flex justify-content-between headermain">
-                {page === 'Home' ? (
+                {location.pathname === '/' ? (
                     <>
                         <h5>
                             <b>Look Around</b>
@@ -18,7 +17,7 @@ function HeaderMain() {
                             <b>Filter</b>
                         </h5>
                     </>
-                ) : page === 'Chat' ? (
+                ) : location.pathname.includes('messenger') ? (
                     <>
                         <h5>
                             <b>Chat</b>
@@ -29,7 +28,7 @@ function HeaderMain() {
                             </b>
                         </h4>
                     </>
-                ) : page === 'Profile' ? (
+                ) : location.pathname.includes('profile') ? (
                     <>
                         <h5>
                             <b>Profile</b>

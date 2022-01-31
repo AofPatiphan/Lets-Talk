@@ -81,7 +81,9 @@ function PostCard({ item }) {
                             <></>
                         )}
                     </div>
-                    {item.caption && item.pictureUrl ? (
+                    {item.caption &&
+                    item.pictureUrl &&
+                    !item.caption.includes('https://www.youtube.com') ? (
                         <>
                             <div className="postContent">{item.caption}</div>
                             <div className="postContent postpicture">
@@ -92,7 +94,9 @@ function PostCard({ item }) {
                                 />
                             </div>
                         </>
-                    ) : item.caption && !item.pictureUrl ? (
+                    ) : item.caption &&
+                      !item.pictureUrl &&
+                      !item.caption.includes('https://www.youtube.com') ? (
                         <div className="postContent">{item.caption}</div>
                     ) : !item.caption && item.pictureUrl ? (
                         <div className="postContent postpicture">
@@ -101,6 +105,16 @@ function PostCard({ item }) {
                                 alt="Post picture"
                                 className="postpicture"
                             />
+                        </div>
+                    ) : item.caption.includes('https://www.youtube.com') &&
+                      !item.pictureUrl ? (
+                        <div style={{ padding: '5px', width: '100%' }}>
+                            <iframe
+                                width="100%"
+                                src={`https://www.youtube.com/embed/${
+                                    item.caption.split('?v=')[1]
+                                }`}
+                            ></iframe>
                         </div>
                     ) : (
                         <></>

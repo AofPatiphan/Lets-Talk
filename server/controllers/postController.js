@@ -77,12 +77,13 @@ exports.createPost = async (req, res, next) => {
 
 exports.updatePost = async (req, res, next) => {
     try {
-        const { caption } = req.body;
+        const { caption, pictureUrl } = req.body;
         const { id } = req.params;
 
         const [affectedRow] = await Post.update(
             {
                 caption,
+                pictureUrl,
             },
             {
                 where: {
@@ -138,6 +139,30 @@ exports.deletePost = async (req, res, next) => {
             res.status(400).json({ message: 'cannot delete todo' });
         }
         res.status(204).json();
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.likePost = async (req, res, next) => {
+    try {
+        const postId = req.params.id;
+        const result = await Like.create({
+            userId: req.user.id,
+            postId: postId,
+        });
+        res.status(201).send({ message: 'like success' });
+    } catch (err) {
+        next(err);
+    }
+};
+exports.unLikePost = async (req, res, next) => {
+    try {
+        const postId = req.params.id;
+        const result = await Like.destroy({
+            where: { postId: postId, userId: req.user.id },
+        });
+        res.status(204).send();
     } catch (err) {
         next(err);
     }

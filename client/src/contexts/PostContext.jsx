@@ -25,10 +25,13 @@ function PostContextProvider(props) {
         }
     };
 
-    const updatePost = async (id, value) => {
+    const updatePost = async (id, value, value2) => {
         const idx = post.findIndex((item) => item.id === id);
         const newPost = [...post];
-        const res = await axios.put(`/post/${id}`, { caption: value });
+        const res = await axios.put(`/post/${id}`, {
+            caption: value,
+            pictureUrl: value2,
+        });
         newPost[idx] = res.data.post;
         setPost(newPost);
     };

@@ -1,13 +1,37 @@
-import React, { useContext } from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
+import { PostContext } from '../../contexts/PostContext';
 import ConfirmDeletePost from './ConfirmDeletePost';
 import './postcard.css';
 import UpdatePostForm from './UpdatePostForm';
 
 function PostCard({ item }) {
     const { user } = useContext(AuthContext);
+    const { fetchPost } = useContext(PostContext);
     const { username } = useParams();
+    const [isLike, setIsLike] = useState(
+        item.Likes.findIndex((item) => item.userId === user.id) !== -1
+    );
+    console.log(item);
+
+    const likePost = async () => {
+        try {
+            const res = await axios.post(`/post/like/${item.id}`);
+            setIsLike(true);
+            fetchPost(username);
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
+
+    const unLikePost = () => {
+        axios.delete(`/post/like/${item.id}`).then((res) => {
+            setIsLike(false);
+            fetchPost(username);
+        });
+    };
 
     return (
         <>
@@ -83,8 +107,15 @@ function PostCard({ item }) {
                         <></>
                     )}
                     <div className="postButtom ">
-                        <button className="btn btnPost">
-                            <i className="bi bi-heart"></i>
+                        <button
+                            className="btn btnPost"
+                            onClick={isLike ? unLikePost : likePost}
+                        >
+                            <i
+                                className={`bi bi-heart${
+                                    isLike ? '-fill' : ''
+                                }`}
+                            ></i>
                         </button>
                         <div className="countLike btnPost">
                             {item.Likes.length} Likes

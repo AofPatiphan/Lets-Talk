@@ -117,7 +117,7 @@ function PostForm() {
                             >
                                 Close
                             </button>
-                            {title || !loading ? (
+                            {title || (picture && !loading) ? (
                                 <button
                                     className="btn postBtn"
                                     data-bs-dismiss="modal"

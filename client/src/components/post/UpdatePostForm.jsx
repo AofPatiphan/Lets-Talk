@@ -1,12 +1,44 @@
+import axios from '../../config/axios';
 import React, { useContext, useState } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
 import { PostContext } from '../../contexts/PostContext';
 
 function UpdatePostForm({ item }) {
     const { updatePost } = useContext(PostContext);
+    const { loading, setLoading } = useContext(AuthContext);
     const [editText, setEditText] = useState(item.caption);
+    const [editPicture, setEditPicture] = useState(item.pictureUrl);
     const handleSubmitEditPost = (e) => {
         e.preventDefault();
-        updatePost(item.id, editText);
+        updatePost(item.id, editText, editPicture);
+    };
+
+    const handleUpdateFileInputChange = async (e) => {
+        setLoading(true);
+        if (!e.target.value) return;
+
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+
+        reader.onloadend = async () => {
+            await uploadImage(reader.result);
+        };
+        e.target.value = '';
+        reader.onerror = () => {
+            console.error('AHHHHHHHH!!');
+        };
+    };
+
+    const uploadImage = async (base64EncodedImage) => {
+        try {
+            const res = await axios.post('/upload', {
+                data: base64EncodedImage,
+            });
+            setEditPicture(res.data.url);
+            setLoading(false);
+        } catch (err) {
+            alert('File size too large.');
+        }
     };
 
     return (
@@ -35,6 +67,17 @@ function UpdatePostForm({ item }) {
                             ></button>
                         </div>
                         <div className="modal-body">
+                            {editPicture ? (
+                                <div className="previewpostphoto">
+                                    <img
+                                        src={editPicture}
+                                        alt=""
+                                        className="previewpostphoto"
+                                    />
+                                </div>
+                            ) : (
+                                <></>
+                            )}
                             <div className="mb-3">
                                 <label
                                     htmlFor="message-text"
@@ -51,6 +94,20 @@ function UpdatePostForm({ item }) {
                                     }
                                 ></textarea>
                             </div>
+                            <div className="mb-3">
+                                <label
+                                    htmlFor="formFile"
+                                    className="form-label"
+                                >
+                                    Select your photo :
+                                </label>
+                                <input
+                                    className="form-control"
+                                    type="file"
+                                    id="formFile"
+                                    onChange={handleUpdateFileInputChange}
+                                />
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button
@@ -60,7 +117,7 @@ function UpdatePostForm({ item }) {
                             >
                                 Close
                             </button>
-                            {editText ? (
+                            {!loading ? (
                                 <button
                                     className="btn postBtn"
                                     data-bs-dismiss="modal"

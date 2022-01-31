@@ -74,6 +74,13 @@ function UpdatePostForm({ item }) {
                                         alt=""
                                         className="previewpostphoto"
                                     />
+                                    <button
+                                        type="button"
+                                        className="btn deletePhotoPreview"
+                                        onClick={() => setEditPicture('')}
+                                    >
+                                        <i className="bi bi-x-circle-fill"></i>
+                                    </button>
                                 </div>
                             ) : (
                                 <></>

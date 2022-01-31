@@ -14,7 +14,6 @@ function PostCard({ item }) {
     const [isLike, setIsLike] = useState(
         item.Likes.findIndex((item) => item.userId === user.id) !== -1
     );
-    console.log(item);
 
     const likePost = async () => {
         try {

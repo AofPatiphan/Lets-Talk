@@ -70,12 +70,19 @@ function PostForm() {
                         </div>
                         <div className="modal-body">
                             {picture ? (
-                                <div className="previewpostphoto">
+                                <div className="previewpostphoto d-flex">
                                     <img
                                         src={picture}
                                         alt=""
                                         className="previewpostphoto"
                                     />
+                                    <button
+                                        type="button"
+                                        className="btn deletePhotoPreview"
+                                        onClick={() => setPicture('')}
+                                    >
+                                        <i className="bi bi-x-circle-fill"></i>
+                                    </button>
                                 </div>
                             ) : (
                                 <></>

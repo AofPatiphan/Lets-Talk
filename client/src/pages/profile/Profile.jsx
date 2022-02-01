@@ -7,6 +7,7 @@ import './profile.css';
 import { PostContext } from '../../contexts/PostContext';
 import EditProfileForm from '../../components/profile/EditProfileForm';
 import { AuthContext } from '../../contexts/AuthContext';
+import LogOutForm from '../../components/auths/logout/LogOutForm';
 
 function Profile() {
     const { aboutPerson } = useContext(AuthContext);
@@ -36,6 +37,7 @@ function Profile() {
         <div className="profile">
             <ProfileHeader person={person} />
             <EditProfileForm fetchUser={fetchUser} />
+            <LogOutForm />
             {post.map((item) => {
                 return <PostCard item={item} key={item.id} />;
             })}

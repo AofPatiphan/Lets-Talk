@@ -1,12 +1,10 @@
 import React from 'react';
 import './profileheader.css';
 import { useContext } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
 import { UserContext } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 
 function ProfileHeader({ person }) {
-    const { logout } = useContext(AuthContext);
     const { userData } = useContext(UserContext);
 
     const navigate = useNavigate();
@@ -44,7 +42,11 @@ function ProfileHeader({ person }) {
                                 >
                                     <b>Edit Profile</b>
                                 </button>
-                                <button className="btn" onClick={logout}>
+                                <button
+                                    className="btn"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#LogoutModal"
+                                >
                                     <b>
                                         <i className="bi bi-box-arrow-right"></i>
                                     </b>

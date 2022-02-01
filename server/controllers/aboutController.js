@@ -54,3 +54,29 @@ exports.updateAbout = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.updateLocation = async (req, res, next) => {
+    try {
+        const { latitude, longitude } = req.body;
+        const { id } = req.params;
+
+        const [affectedRow] = await About.update(
+            {
+                latitude: latitude,
+                longitude: longitude,
+            },
+            {
+                where: {
+                    userId: req.user.id,
+                },
+            }
+        );
+
+        const about = await About.findOne({
+            where: { userId: id },
+        });
+        res.status(200).json({ about });
+    } catch (err) {
+        next(err);
+    }
+};

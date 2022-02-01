@@ -14,6 +14,12 @@ module.exports = (sequelize, Datatypes) => {
             birthDate: {
                 type: Datatypes.DATEONLY,
             },
+            latitude: {
+                type: Datatypes.STRING,
+            },
+            longitude: {
+                type: Datatypes.STRING,
+            },
         },
         {
             underscored: true,

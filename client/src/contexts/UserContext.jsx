@@ -1,14 +1,16 @@
 import axios from '../config/axios';
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 import jwtDecode from 'jwt-decode';
 import * as localStorageService from '../services/localStorage';
 import { API_ENDPOINT_URL } from '../config/env';
 import io from 'socket.io-client';
+import { AuthContext } from './AuthContext';
 
 const UserContext = createContext();
 
 function UserContextProvider(props) {
-    const [userData, setUserData] = useState(null);
+    const { user } = useContext(AuthContext);
+    const [userData, setUserData] = useState('');
     const [socket, setSocket] = useState(null);
 
     // Get data profile
@@ -25,10 +27,13 @@ function UserContextProvider(props) {
                     token: localStorageService.getToken(),
                 },
             });
+
             setSocket(newSocket);
             fetchUser();
         }
     }, [token]);
+
+    // get About for all user
 
     if (!userData) {
         return <></>;

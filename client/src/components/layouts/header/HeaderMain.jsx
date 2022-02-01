@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
 import './headermain.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import axios from '../../../config/axios';
 
 function HeaderMain() {
     const location = useLocation();
-
+    const [navName, setNavName] = useState('');
+    const { id } = useParams();
+    const getUser = async () => {
+        try {
+            const res = await axios.get(`/user/me/${id}`);
+            setNavName(res.data.user);
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
+    if (location.pathname === `/messenger/${id}`) {
+        getUser();
+    }
     return (
         <>
             <div className="ps-4 pe-4 pt-3 fixed-top d-flex justify-content-between headermain">
@@ -39,9 +52,9 @@ function HeaderMain() {
                             </button>
                         </div>
                     </>
-                ) : location.pathname.includes('messenger/') ? (
+                ) : location.pathname === `/messenger/${id}` ? (
                     <h5>
-                        <b>Chat</b>
+                        <b>{navName.username}</b>
                     </h5>
                 ) : (
                     <></>

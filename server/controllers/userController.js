@@ -9,13 +9,33 @@ exports.getAllUser = async (req, res, next) => {
                 {
                     model: About,
                     attributes: {
-                        exclude: ['createdAt', 'updatedAt'],
+                        exclude: ['createdAt'],
                     },
                 },
             ],
             where: { [Op.not]: [{ id: [id] }] },
         });
         res.status(200).json({ users });
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.getMe = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findOne({
+            include: [
+                {
+                    model: About,
+                    attributes: {
+                        exclude: ['createdAt'],
+                    },
+                },
+            ],
+            where: { id: id },
+        });
+        res.status(200).json({ user });
     } catch (err) {
         next(err);
     }

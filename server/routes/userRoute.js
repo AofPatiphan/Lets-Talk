@@ -5,6 +5,7 @@ const userController = require('../controllers/userController');
 const auth = passport.authenticate('jwt-auth', { session: false });
 
 router.get('/all/:id', auth, userController.getAllUser);
+router.get('/me/:id', auth, userController.getMe);
 router.get('/:username', auth, userController.getUserByUsername);
 
 module.exports = router;

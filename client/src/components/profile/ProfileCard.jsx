@@ -30,7 +30,7 @@ function ProfileCard({ item }) {
                     console.log(err.message);
                 }
             });
-        }, 5000);
+        }, 3000);
         return () => {
             clearInterval(time);
         };
@@ -100,8 +100,10 @@ function ProfileCard({ item }) {
                         <b>{item.username}</b>
                     </div>
                     <div className="detail2">
-                        {distance} m |{' '}
-                        {timeSince(otherUserData.About.updatedAt)} ago
+                        {distance > 1000
+                            ? (distance / 1000).toFixed(1) + ' ' + 'km'
+                            : distance + ' ' + 'm'}{' '}
+                        | {timeSince(otherUserData.About.updatedAt)}
                     </div>
                 </div>
                 <div>{item.About?.caption}</div>

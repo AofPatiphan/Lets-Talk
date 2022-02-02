@@ -149,7 +149,7 @@ function RegisterForm() {
                             <button
                                 type="submit"
                                 className="btn register-button"
-                                disable
+                                disable="true"
                             >
                                 Register
                             </button>

@@ -1,8 +1,6 @@
-# Holiyay-Webblog (In Development)
+# Let's Talk (In Development)
 
-An online journal or informational website displaying information in reverse chronological order, with the
-latest posts appearing first, at the top. It is a platform where a writer or a group of writers share their views on an
-individual subject all about traveling.
+An online realtime chat that you can find someone near you. It is a platform where a user can make a conversation and share their mind or views.
 
 ## Installation
 

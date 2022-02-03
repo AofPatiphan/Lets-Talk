@@ -9,7 +9,7 @@
 } */
 
 .chatBoxTop {
-    height: 650px;
+    height: 73vh;
     overflow-y: scroll;
     padding: 80px 30px 0;
 }
@@ -17,8 +17,9 @@
 .chatBoxBottom {
     background-color: #ffebd6;
     border-radius: 10px;
-    padding: 20px 20px 40px 20px;
+    padding: 20px 20px 20px 20px;
     margin-top: 5px;
+    margin-bottom: 10vh;
     display: flex;
     justify-content: space-between;
 }

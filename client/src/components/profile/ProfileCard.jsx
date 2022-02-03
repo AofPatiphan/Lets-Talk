@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './profilecard.css';
 import { getDistance, getPreciseDistance } from 'geolib';
 import { AuthContext } from '../../contexts/AuthContext';
+import { PostContext } from '../../contexts/PostContext';
 import axios from 'axios';
 import timeSince from '../../services/timeSince';
 
@@ -57,6 +58,11 @@ function ProfileCard({ item }) {
     useEffect(() => {
         fetchMyData();
         fetchOtherUserData();
+    }, []);
+
+    useEffect(() => {
+        fetchMyData();
+        fetchOtherUserData();
         calculatePreciseDistance();
     }, [refresh]);
 
@@ -99,12 +105,21 @@ function ProfileCard({ item }) {
                     <div className="detail1">
                         <b>{item.username}</b>
                     </div>
-                    <div className="detail2">
-                        {distance > 1000
-                            ? (distance / 1000).toFixed(1) + ' ' + 'km'
-                            : distance + ' ' + 'm'}{' '}
-                        | {timeSince(otherUserData.About.updatedAt)}
-                    </div>
+                    {!distance ? (
+                        <div
+                            className="spinner-grow text-secondary"
+                            role="status"
+                        >
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    ) : (
+                        <div className="detail2">
+                            {distance > 1000
+                                ? (distance / 1000).toFixed(1) + ' ' + 'km'
+                                : distance + ' ' + 'm'}{' '}
+                            | {timeSince(otherUserData.About.updatedAt)}
+                        </div>
+                    )}
                 </div>
                 <div>{item.About?.caption}</div>
             </div>

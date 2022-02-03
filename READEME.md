@@ -18,4 +18,5 @@ Start server and run the app in the development mode
 npm start
 ```
 
-Open http://localhost:3000 to view client side in the browser.
+Open http://localhost:3000 to view client side in the browser and please open inspec dialog then choose toggle device tool bar (change to Dimentions to iPhone 12 Pro)
+
